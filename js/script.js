@@ -13,10 +13,8 @@ For assistance:
 
 
 
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
+
+// This function displays the array of student objects to the page with 9 or less students per page.
 function showPage ( list, page ) {
    const startIndex = (page * 9) - 9;
    const endIndex = page * 9;
@@ -42,10 +40,11 @@ function showPage ( list, page ) {
 }
 
 
-/*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
-*/
+
+/* 
+This function creates the page buttons at the bottom of the page and calls the showPage function to show the rest of the students 
+displayed on different pages. 
+*/ 
 function addPagination (list) {
    const numOfPages = Math.ceil(list.length/9);
    const linkList = document.querySelector("ul.link-list");
@@ -58,7 +57,12 @@ function addPagination (list) {
       let activePage = document.querySelector("button");
       activePage.className = "active";
       linkList.addEventListener("click", (event) => {
-         
+        if (event.target.tagName === "BUTTON") {
+            const clickedButton = event.target;
+            document.querySelector(".active").className = '';
+            clickedButton.className = "active";
+            showPage(data, clickedButton.textContent)
+        }
       })
    }
 }
